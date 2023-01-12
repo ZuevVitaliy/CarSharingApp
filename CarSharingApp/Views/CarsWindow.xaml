@@ -15,8 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -28,33 +27,30 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-               
             </Grid.ColumnDefinitions>
 
             <Button Width="130" Height="50" 
-               Command="{Binding OpenClientWindow}">Клиенты</Button>
+                Command="{Binding OpenClientsWindow}">Клиенты</Button>
             <Button Grid.Column="1" Width="130" Height="50"
-                Command="{Binding OpenRentsWindow}">Аренда</Button>
-              
+                Command="{Binding OpenRentsWindow}">Аренды</Button>
+            
         </Grid>
-        <Grid Grid.Row="1" Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Grid.Row="1" 
+              Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-           
 
             <Button Width="130" Height="50" 
-               Command="{Binding AddCar}">Добавить</Button>
+                Command="{Binding AddCar}">Добавить</Button>
             <Button Grid.Column="1" Width="130" Height="50"
                 Command="{Binding EditCar}">Редактировать</Button>
-            <Button Grid.Column="2" Width="130" Height="50"     
+            <Button Grid.Column="2" Width="130" Height="50" 
                 Command="{Binding DeleteCars}">Удалить</Button>
         </Grid>
-        
-
-        <DataGrid Grid.Row="2"  IsReadOnly="True" SelectionMode="Extended"
+        <DataGrid Grid.Row="2" IsReadOnly="True" SelectionMode="Extended"
                   SelectedItem="{Binding SelectedCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Cars}"
                   SelectionChanged="CarsDataGridSelectionChanged"/>
