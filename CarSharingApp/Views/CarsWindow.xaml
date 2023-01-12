@@ -14,30 +14,44 @@
             <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    
-    
+
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Button Width="130" Height="50" 
-                Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                Command="{Binding AddCar}">Добавить</Button>
-        <Button Grid.Column="1" Width="130" Height="50"
-                Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                Command="{Binding EditCar}">Редактировать</Button>
-        <Button Grid.Column="2" Width="130" Height="50" 
-                Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}" 
-                Command="{Binding DeleteCars}">Удалить</Button>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="3" IsReadOnly="True" SelectionMode="Extended"
+            <Button Width="130" Height="50" 
+                Command="{Binding OpenClientsWindow}">Клиенты</Button>
+            <Button Grid.Column="1" Width="130" Height="50"
+                Command="{Binding OpenRentsWindow}">Аренды</Button>
+            
+        </Grid>
+        <Grid Grid.Row="1" 
+              Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Width="130" Height="50" 
+                Command="{Binding AddCar}">Добавить</Button>
+            <Button Grid.Column="1" Width="130" Height="50"
+                Command="{Binding EditCar}">Редактировать</Button>
+            <Button Grid.Column="2" Width="130" Height="50" 
+                Command="{Binding DeleteCars}">Удалить</Button>
+        </Grid>
+
+        <DataGrid Grid.Row="2" IsReadOnly="True" SelectionMode="Extended"
                   SelectedItem="{Binding SelectedCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Cars}"
                   SelectionChanged="CarsDataGridSelectionChanged"/>
