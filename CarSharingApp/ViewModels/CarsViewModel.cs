@@ -56,7 +56,7 @@ namespace CarSharingApp.ViewModels
             set
             {
                 _selectedCar = value;
-                EditCar.RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
                 DeleteCars.RaiseCanExecuteChanged();
             }
         }
@@ -78,11 +78,11 @@ namespace CarSharingApp.ViewModels
 
         #region Commands
 
-        private DelegateCommand _addCar;
-        public DelegateCommand AddCar =>
-                    _addCar ??= new DelegateCommand(AddCar_Execute);
+        private DelegateCommand _addCommand;
+        public DelegateCommand AddCommand =>
+                    _addCommand ??= new DelegateCommand(AddCommand_Execute);
 
-        private void AddCar_Execute()
+        private void AddCommand_Execute()
         {
             var car = new Car();
             var addWindow = new AddEditCarWindow(car);
@@ -104,11 +104,11 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private DelegateCommand _editCar;
-        public DelegateCommand EditCar =>
-                    _editCar ??= new DelegateCommand(EditCar_Execute, EditCar_CanExecute);
+        private DelegateCommand _editCommand;
+        public DelegateCommand EditCommand =>
+                    _editCommand ??= new DelegateCommand(EditCommand_Execute, EditCommand_CanExecute);
 
-        private void EditCar_Execute()
+        private void EditCommand_Execute()
         {
             var car = SelectedCar;
             var addWindow = new AddEditCarWindow(car);
@@ -130,17 +130,17 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private bool EditCar_CanExecute()
+        private bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
 
-        private DelegateCommand _deleteCars;
+        private DelegateCommand _deleteCommand;
 
         public DelegateCommand DeleteCars =>
-                            _deleteCars ??= new DelegateCommand(DeleteCars_Execute, DeleteCars_CanExecute);
+                            _deleteCommand ??= new DelegateCommand(DeleteCommand_Execute, DeleteCommand_CanExecute);
 
-        private void DeleteCars_Execute()
+        private void DeleteCommand_Execute()
         {
             try
             {
@@ -159,7 +159,7 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private bool DeleteCars_CanExecute()
+        private bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
