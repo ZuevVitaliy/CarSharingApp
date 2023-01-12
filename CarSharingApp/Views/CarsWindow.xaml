@@ -18,8 +18,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
@@ -44,11 +44,11 @@
             </Grid.ColumnDefinitions>
 
             <Button Width="130" Height="50" 
-                Command="{Binding AddCar}">Добавить</Button>
+                Command="{Binding AddCommand}">Добавить</Button>
             <Button Grid.Column="1" Width="130" Height="50"
-                Command="{Binding EditCar}">Редактировать</Button>
+                Command="{Binding EditCommand}">Редактировать</Button>
             <Button Grid.Column="2" Width="130" Height="50" 
-                Command="{Binding DeleteCars}">Удалить</Button>
+                Command="{Binding DeleteCommand}">Удалить</Button>
         </Grid>
         <DataGrid Grid.Row="2" IsReadOnly="True" SelectionMode="Extended"
                   SelectedItem="{Binding SelectedCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
