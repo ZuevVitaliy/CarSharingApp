@@ -37,7 +37,8 @@ namespace CarSharingApp.ViewModels
 
         protected override bool DeleteCommand_CanExecute()
         {
-            throw new NotImplementedException();
+            //TODO: костыль для запуска окна. Позже изменить логику
+            return true;
         }
 
         protected override void EditCommand_Execute()
@@ -47,7 +48,8 @@ namespace CarSharingApp.ViewModels
 
         protected override bool EditCommand_CanExecute()
         {
-            throw new NotImplementedException();
+            //TODO: костыль для запуска окна. Позже изменить логику
+            return true;
         }
     }
 }

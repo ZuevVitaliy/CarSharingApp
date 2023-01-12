@@ -142,6 +142,25 @@ namespace CarSharingApp.ViewModels
             return HasCanEditOrRemoveCar;
         }
 
+        private DelegateCommand _openClientsWindowCommand;
+        public DelegateCommand OpenClientsWindowCommand =>
+            _openClientsWindowCommand ??= new DelegateCommand(OpenClientsWindowCommand_Execute);
+
+        private void OpenClientsWindowCommand_Execute()
+        {
+            var clientsWindow = new ClientsWindow();
+            clientsWindow.Show();
+        }
+
+        private DelegateCommand _openRentsWindowCommand;
+        public DelegateCommand OpenRentsWindowCommand =>
+            _openRentsWindowCommand ??= new DelegateCommand(OpenRentsWindowCommand_Execute);
+
+        private void OpenRentsWindowCommand_Execute()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion Commands
     }
 }
