@@ -1,4 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.ViewModels.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace CarSharingApp.ViewModels
 {
-    public class ClientsViewModel : EntityWindowViewModelBase
+    public class ClientsViewModel : EntityWindowViewModelBase<Client>
     {
-
         private Client _selectedClient;
         public Client SelectedClient
         {
@@ -25,31 +25,33 @@ namespace CarSharingApp.ViewModels
 
         public ObservableCollection<Client> SelectedClients { get; set; }
 
-        protected override void AddCommand_Execute()
-        {
-            throw new NotImplementedException();
-        }
+        public ObservableCollection<Client> Clients { get; set; }
 
-        protected override void DeleteCommand_Execute()
+        public bool HasCanEditOrRemoveClient => SelectedClient != null;
+
+        protected override bool EditCommand_CanExecute()
         {
-            throw new NotImplementedException();
+            return HasCanEditOrRemoveClient;
         }
 
         protected override bool DeleteCommand_CanExecute()
         {
-            //TODO: костыль для запуска окна. Позже изменить логику
-            return true;
+            return HasCanEditOrRemoveClient;
         }
 
-        protected override void EditCommand_Execute()
+        protected override Client SelectedItemExtractor()
         {
-            throw new NotImplementedException();
+            return SelectedClient;
         }
 
-        protected override bool EditCommand_CanExecute()
+        protected override ObservableCollection<Client> EntitiesCollectionExtractor()
         {
-            //TODO: костыль для запуска окна. Позже изменить логику
-            return true;
+            return Clients;
+        }
+
+        protected override ObservableCollection<Client> SelectedItemsExtractor()
+        {
+            return SelectedClients;
         }
     }
 }

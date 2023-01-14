@@ -13,13 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.Views.Interfaces;
 
 namespace CarSharingApp.Views
 {
     /// <summary>
     /// Логика взаимодействия для AddEditCarWindow.xaml
     /// </summary>
-    public partial class AddEditCarWindow : Window
+    public partial class AddEditCarWindow : Window, IAddEditWindow
     {
         public AddEditCarWindow(Car car)
         {
