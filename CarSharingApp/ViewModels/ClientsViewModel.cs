@@ -1,4 +1,5 @@
-﻿using CarSharingApp.Models.DataBase.Entities;
+﻿using CarSharingApp.Models.DataBase;
+using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.ViewModels.BaseClasses;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ namespace CarSharingApp.ViewModels
 {
     public class ClientsViewModel : EntityWindowViewModelBase<Client>
     {
+        public ClientsViewModel()
+        {
+            var dbContext = new ApplicationDbContext();
+            var clients = dbContext.Clients;
+            Clients = new ObservableCollection<Client>(clients);
+        }
+
         private Client _selectedClient;
         public Client SelectedClient
         {

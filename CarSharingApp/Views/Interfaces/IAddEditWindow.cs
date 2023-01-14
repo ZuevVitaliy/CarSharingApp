@@ -10,6 +10,7 @@ namespace CarSharingApp.Views.Interfaces
     {
         void Show();
         bool? ShowDialog();
-        bool? DialogResult { get; }
+        bool? DialogResult { get; set; }
+        void Close();
     }
 }
