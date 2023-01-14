@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace CarSharingApp.ViewModels
 {
-    public class CarsViewModel : EntityViewModelBase
+    public class CarsViewModel : EntityWindowViewModelBase
     {
         public CarsViewModel()
         {
@@ -61,15 +61,7 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private ObservableCollection<Car> _selectedCars;
-        public ObservableCollection<Car> SelectedCars
-        {
-            get => _selectedCars;
-            set
-            {
-                _selectedCars = value;
-            }
-        }
+        public ObservableCollection<Car> SelectedCars { get; set; }
 
         private bool HasCanEditOrRemoveCar => SelectedCar != null;
         public bool HasUserAdminOptions => Role == Role.Administrator;
@@ -148,6 +140,25 @@ namespace CarSharingApp.ViewModels
         protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
+        }
+
+        private DelegateCommand _openClientsWindowCommand;
+        public DelegateCommand OpenClientsWindowCommand =>
+            _openClientsWindowCommand ??= new DelegateCommand(OpenClientsWindowCommand_Execute);
+
+        private void OpenClientsWindowCommand_Execute()
+        {
+            var clientsWindow = new ClientsWindow();
+            clientsWindow.Show();
+        }
+
+        private DelegateCommand _openRentsWindowCommand;
+        public DelegateCommand OpenRentsWindowCommand =>
+            _openRentsWindowCommand ??= new DelegateCommand(OpenRentsWindowCommand_Execute);
+
+        private void OpenRentsWindowCommand_Execute()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Commands

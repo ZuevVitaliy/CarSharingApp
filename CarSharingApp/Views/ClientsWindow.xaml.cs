@@ -24,6 +24,7 @@ namespace CarSharingApp.Views
     {
 
         private readonly ClientsViewModel _clientsViewModel;
+
         public ClientsWindow()
         {
             InitializeComponent();
