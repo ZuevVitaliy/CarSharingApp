@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace CarSharingApp.ViewModels
 {
-    public class CarsViewModel : BindableBase
+    public class CarsViewModel : EntityWindowViewModelBase
     {
         public CarsViewModel()
         {
@@ -57,32 +57,19 @@ namespace CarSharingApp.ViewModels
             {
                 _selectedCar = value;
                 EditCommand.RaiseCanExecuteChanged();
-                DeleteCars.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
 
-        private ObservableCollection<Car> _selectedCars;
-        public ObservableCollection<Car> SelectedCars
-        {
-            get => _selectedCars;
-            set
-            {
-                _selectedCars = value;
-            }
-        }
+        public ObservableCollection<Car> SelectedCars { get; set; }
 
         private bool HasCanEditOrRemoveCar => SelectedCar != null;
         public bool HasUserAdminOptions => Role == Role.Administrator;
 
         #endregion Properties
-
         #region Commands
 
-        private DelegateCommand _addCommand;
-        public DelegateCommand AddCommand =>
-                    _addCommand ??= new DelegateCommand(AddCommand_Execute);
-
-        private void AddCommand_Execute()
+        protected override void AddCommand_Execute()
         {
             var car = new Car();
             var addWindow = new AddEditCarWindow(car);
@@ -104,11 +91,7 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private DelegateCommand _editCommand;
-        public DelegateCommand EditCommand =>
-                    _editCommand ??= new DelegateCommand(EditCommand_Execute, EditCommand_CanExecute);
-
-        private void EditCommand_Execute()
+        protected override void EditCommand_Execute()
         {
             var car = SelectedCar;
             var addWindow = new AddEditCarWindow(car);
@@ -130,17 +113,12 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private bool EditCommand_CanExecute()
+        protected override bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
 
-        private DelegateCommand _deleteCommand;
-
-        public DelegateCommand DeleteCars =>
-                            _deleteCommand ??= new DelegateCommand(DeleteCommand_Execute, DeleteCommand_CanExecute);
-
-        private void DeleteCommand_Execute()
+        protected override void DeleteCommand_Execute()
         {
             try
             {
@@ -159,9 +137,28 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private bool DeleteCommand_CanExecute()
+        protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
+        }
+
+        private DelegateCommand _openClientsWindowCommand;
+        public DelegateCommand OpenClientsWindowCommand =>
+            _openClientsWindowCommand ??= new DelegateCommand(OpenClientsWindowCommand_Execute);
+
+        private void OpenClientsWindowCommand_Execute()
+        {
+            var clientsWindow = new ClientsWindow();
+            clientsWindow.Show();
+        }
+
+        private DelegateCommand _openRentsWindowCommand;
+        public DelegateCommand OpenRentsWindowCommand =>
+            _openRentsWindowCommand ??= new DelegateCommand(OpenRentsWindowCommand_Execute);
+
+        private void OpenRentsWindowCommand_Execute()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion Commands

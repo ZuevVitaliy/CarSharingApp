@@ -14,7 +14,8 @@
             <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-       
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -27,19 +28,21 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Width="130" Height="50" 
-                Command="{Binding OpenClientsWindow}">Клиенты</Button>
-            <Button Grid.Column="1" Width="130" Height="50"
-                Command="{Binding OpenRentsWindow}">Аренда</Button>
-        </Grid>
 
-        <Grid Grid.Row="1"
-            Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button Width="130" Height="50" 
+                Command="{Binding OpenClientsWindowCommand}">Клиенты</Button>
+            <Button Grid.Column="1" Width="130" Height="50"
+                Command="{Binding OpenRentsWindowCommand}">Аренды</Button>
+            
+        </Grid>
+        <Grid Grid.Row="1" 
+              Visibility="{Binding HasUserAdminOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
+
             <Button Width="130" Height="50" 
                 Command="{Binding AddCommand}">Добавить</Button>
             <Button Grid.Column="1" Width="130" Height="50"
@@ -47,7 +50,7 @@
             <Button Grid.Column="2" Width="130" Height="50" 
                 Command="{Binding DeleteCommand}">Удалить</Button>
         </Grid>
-        
+
         <DataGrid Grid.Row="2" IsReadOnly="True" SelectionMode="Extended"
                   SelectedItem="{Binding SelectedCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Cars}"

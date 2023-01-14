@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         Title="ClientsWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
+          <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
+
             <Button Width="130" Height="50" 
                 Command="{Binding AddCommand}">Добавить</Button>
             <Button Grid.Column="1" Width="130" Height="50"
@@ -25,5 +26,10 @@
             <Button Grid.Column="2" Width="130" Height="50" 
                 Command="{Binding DeleteCommand}">Удалить</Button>
         </Grid>
+
+        <DataGrid Grid.Row="1" IsReadOnly="True" SelectionMode="Extended"
+                  SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Clients}"
+                  SelectionChanged="ClientsDataGridSelectionChanged"/>
     </Grid>
 </Window>

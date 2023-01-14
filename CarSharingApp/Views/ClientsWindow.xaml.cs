@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,19 @@ namespace CarSharingApp.Views
     /// </summary>
     public partial class ClientsWindow : Window
     {
+        private readonly ClientsViewModel _clientsViewModel;
+
         public ClientsWindow()
         {
             InitializeComponent();
+            _clientsViewModel = new ClientsViewModel();
+            DataContext = _clientsViewModel;
+        }
+
+        private void ClientsDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedClients = ((DataGrid)sender).SelectedItems.Cast<Client>();
+            _clientsViewModel.SelectedClients = new ObservableCollection<Client>(selectedClients);
         }
     }
 }
