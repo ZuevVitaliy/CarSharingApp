@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.Views.BaseClasses;
 
 namespace CarSharingApp.Views
 {

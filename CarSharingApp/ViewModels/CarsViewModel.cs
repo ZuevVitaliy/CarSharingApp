@@ -1,6 +1,7 @@
 ﻿using CarSharingApp.Models.DataBase;
 using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.Models.Extensions;
+using CarSharingApp.ViewModels.BaseClasses;
 using CarSharingApp.Views;
 using Microsoft.EntityFrameworkCore;
 using Prism.Commands;
@@ -15,7 +16,7 @@ using System.Windows;
 
 namespace CarSharingApp.ViewModels
 {
-    public class CarsViewModel : BindableBase
+    public class CarsViewModel : EntityWindowViewModelBase<Car>
     {
         public CarsViewModel()
         {
@@ -49,119 +50,63 @@ namespace CarSharingApp.ViewModels
         }
 
         private Car _selectedCar;
-
         public Car SelectedCar
         {
             get => _selectedCar;
             set
             {
                 _selectedCar = value;
-                EditCar.RaiseCanExecuteChanged();
-                DeleteCars.RaiseCanExecuteChanged();
+                EditCommand.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
             }
         }
-
-        private ObservableCollection<Car> _selectedCars;
-        public ObservableCollection<Car> SelectedCars
-        {
-            get => _selectedCars;
-            set
-            {
-                _selectedCars = value;
-            }
-        }
-
+        public ObservableCollection<Car> SelectedCars { get; set; }
         private bool HasCanEditOrRemoveCar => SelectedCar != null;
         public bool HasUserAdminOptions => Role == Role.Administrator;
 
+
         #endregion Properties
-
         #region Commands
-
-        private DelegateCommand _addCar;
-        public DelegateCommand AddCar =>
-                    _addCar ??= new DelegateCommand(AddCar_Execute);
-
-        private void AddCar_Execute()
+        protected override bool EditCommand_CanExecute()
         {
-            var car = new Car();
-            var addWindow = new AddEditCarWindow(car);
-            if (addWindow.ShowDialog() == true)
-            {
-                try
-                {
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        dbContext.Cars.Add(car);
-                        dbContext.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                Cars.Add(car);
-            }
+            return HasCanEditOrRemoveCar;
         }
-
-        private DelegateCommand _editCar;
-        public DelegateCommand EditCar =>
-                    _editCar ??= new DelegateCommand(EditCar_Execute, EditCar_CanExecute);
-
-        private void EditCar_Execute()
-        {
-            var car = SelectedCar;
-            var addWindow = new AddEditCarWindow(car);
-            if (addWindow.ShowDialog() == true)
-            {
-                try
-                {
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        dbContext.Entry(car).State = EntityState.Modified;
-                        dbContext.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                Cars = new ObservableCollection<Car>(Cars);
-            }
-        }
-
-        private bool EditCar_CanExecute()
+        protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
 
-        private DelegateCommand _deleteCars;
 
-        public DelegateCommand DeleteCars =>
-                            _deleteCars ??= new DelegateCommand(DeleteCars_Execute, DeleteCars_CanExecute);
-
-        private void DeleteCars_Execute()
+        private DelegateCommand _openClientsWindowCommand;
+        public DelegateCommand OpenClientsWindowCommand =>
+            _openClientsWindowCommand ??= new DelegateCommand(OpenClientsWindowCommand_Execute);
+        private void OpenClientsWindowCommand_Execute()
         {
-            try
-            {
-                using (var dbContext = new ApplicationDbContext())
-                {
-                    dbContext.Cars.RemoveRange(SelectedCars);
-                    dbContext.SaveChanges();
-                }
-                Cars.RemoveRange(SelectedCars);
-                SelectedCar = null;
-                SelectedCars = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            var clientsWindow = new ClientsWindow();
+            clientsWindow.Show();
         }
 
-        private bool DeleteCars_CanExecute()
+
+        private DelegateCommand _openRentsWindowCommand;
+        public DelegateCommand OpenRentsWindowCommand =>
+            _openRentsWindowCommand ??= new DelegateCommand(OpenRentsWindowCommand_Execute);
+        private void OpenRentsWindowCommand_Execute()
         {
-            return HasCanEditOrRemoveCar;
+            throw new NotImplementedException();
+        }
+
+
+        protected override Car SelectedItemExtractor()
+        {
+            return SelectedCar;
+        }
+        protected override ObservableCollection<Car> EntitiesCollectionExtractor()
+        {
+            return Cars;
+        }
+        protected override ObservableCollection<Car> SelectedItemsExtractor()
+        {
+            return SelectedCars;
         }
 
         #endregion Commands
