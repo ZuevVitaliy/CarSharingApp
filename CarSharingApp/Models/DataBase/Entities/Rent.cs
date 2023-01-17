@@ -14,5 +14,12 @@ namespace CarSharingApp.Models.DataBase.Entities
         public DateTime StartRent { get; set; }
         public DateTime EndRent { get; set; }
         public double CostPerHour { get; set; }
+        public Status Status { get; set; }
+    }
+    public enum Status
+    {
+        InStock,
+        Rented,
+        Overdue
     }
 }

@@ -52,12 +52,12 @@ namespace CarSharingApp.ViewModels
             return SelectedClient;
         }
 
-        protected override ObservableCollection<Client> EntitiesCollectionExtractor()
+        protected override ICollection<Client> EntitiesCollectionExtractor()
         {
             return Clients;
         }
 
-        protected override ObservableCollection<Client> SelectedItemsExtractor()
+        protected override ICollection<Client> SelectedItemsExtractor()
         {
             return SelectedClients;
         }

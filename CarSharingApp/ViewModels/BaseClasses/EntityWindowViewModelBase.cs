@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -84,7 +85,7 @@ namespace CarSharingApp.ViewModels.BaseClasses
 
         protected virtual void DeleteCommand_Execute()
         {
-            ObservableCollection<TEntity> selectedItems =
+            ICollection<TEntity> selectedItems =
                 SelectedItemsExtractor();
             try
             {
@@ -94,7 +95,7 @@ namespace CarSharingApp.ViewModels.BaseClasses
                     dbSet.RemoveRange(selectedItems);
                     dbContext.SaveChanges();
                 }
-                ObservableCollection<TEntity> itemsCollection =
+                ICollection<TEntity> itemsCollection =
                     EntitiesCollectionExtractor();
                 itemsCollection.RemoveRange(selectedItems);
                 itemsCollection = null;
@@ -116,12 +117,12 @@ namespace CarSharingApp.ViewModels.BaseClasses
         /// <summary>
         /// Функция, которая извлекает элементы списка из класса-наследника.
         /// </summary>
-        protected abstract ObservableCollection<TEntity> EntitiesCollectionExtractor();
+        protected abstract ICollection<TEntity> EntitiesCollectionExtractor();
 
         /// <summary>
         /// Функция, которая извлекает выбранные элементы из класса-наследника.
         /// </summary>
-        protected abstract ObservableCollection<TEntity> SelectedItemsExtractor();
+        protected abstract ICollection<TEntity> SelectedItemsExtractor();
 
     }
 }

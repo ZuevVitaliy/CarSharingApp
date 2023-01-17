@@ -14,6 +14,11 @@ namespace CarSharingApp.Models.DataBase.Entities
         public Vip Vip { get; set; }
 
         public virtual ICollection<Rent> Rents { get; set; }
+
+        public static implicit operator Client(Car v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public enum Vip
