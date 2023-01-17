@@ -15,8 +15,6 @@ namespace CarSharingApp.Helpers.Window
             {
                 case nameof(Car):
                     return new AddEditCarWindow(entity as Car);
-                case nameof(Client):
-                    return new AddEditClientWindow(entity as Client);
                 default:
                     throw new ArgumentException(
                         $@"Класс ""{type.Name}"" не определён для фабрики окон создания/редактирования");
