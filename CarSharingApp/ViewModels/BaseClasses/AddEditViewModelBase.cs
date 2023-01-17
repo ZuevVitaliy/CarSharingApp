@@ -1,12 +1,14 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.Views.Interfaces;
 using Prism.Commands;
+using Prism.Mvvm;
 
 namespace CarSharingApp.ViewModels.BaseClasses
 {
-    public abstract class AddEditViewModelBase
+    public abstract class AddEditViewModelBase : BindableBase
     {
         private readonly IAddEditWindow _addEditWindow;
+
         public AddEditViewModelBase(IAddEditWindow addEditWindow)
         {
             _addEditWindow = addEditWindow;
@@ -16,21 +18,24 @@ namespace CarSharingApp.ViewModels.BaseClasses
         private DelegateCommand _saveCommand;
 
         private DelegateCommand _cancelCommand;
+
         public DelegateCommand SaveCommand =>
             _saveCommand ??= new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
 
         public DelegateCommand CancelCommand =>
             _cancelCommand ??= new DelegateCommand(CancelCommand_Execute);
 
-        protected abstract void SaveEntity();
-        protected abstract bool SaveCommand_CanExecute();
-        protected void SaveCommand_Execute()
+        private void SaveCommand_Execute()
         {
-            SaveEntity();
+            SaveEntityOperation();
             _addEditWindow.DialogResult = true;
-
+            _addEditWindow.Close();
         }
-        protected void CancelCommand_Execute()
+
+        protected abstract void SaveEntityOperation();
+        protected abstract bool SaveCommand_CanExecute();
+
+        private void CancelCommand_Execute()
         {
             _addEditWindow.DialogResult = false;
             _addEditWindow.Close();

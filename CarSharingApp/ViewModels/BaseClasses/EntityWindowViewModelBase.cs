@@ -1,4 +1,4 @@
-﻿using CarSharingApp.Helpers;
+﻿using CarSharingApp.Helpers.Window;
 using CarSharingApp.Models.DataBase;
 using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.Models.Extensions;
@@ -10,11 +10,13 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace CarSharingApp.ViewModels
+namespace CarSharingApp.ViewModels.BaseClasses
 {
-    public abstract class EntityWindowViewModelBase<TEntity> : BindableBase where TEntity : Entity , new()
+    public abstract class EntityWindowViewModelBase<TEntity>
+        : BindableBase where TEntity : Entity, new()
     {
         private readonly AddEditWindowFactory _addEditWindowFactory;
+
         public EntityWindowViewModelBase()
         {
             _addEditWindowFactory = new AddEditWindowFactory();
@@ -36,8 +38,8 @@ namespace CarSharingApp.ViewModels
                 {
                     using (var dbContext = new ApplicationDbContext())
                     {
-                        DbSet<TEntity> dbset = dbContext.Set<TEntity>();
-                        dbset.Add(addingEntity);
+                        DbSet<TEntity> dbSet = dbContext.Set<TEntity>();
+                        dbSet.Add(addingEntity);
                         dbContext.SaveChanges();
                     }
                 }
@@ -45,8 +47,8 @@ namespace CarSharingApp.ViewModels
                 {
                     MessageBox.Show(ex.Message);
                 }
-                var Collection = EntitiesCollectionExtractor();
-                Collection.Add(addingEntity);
+                var collection = EntitiesCollectionExtractor();
+                collection.Add(addingEntity);
             }
         }
 
@@ -56,7 +58,7 @@ namespace CarSharingApp.ViewModels
 
         protected virtual void EditCommand_Execute()
         {
-            var editingEntity = SelectedItemsExtractor();
+            var editingEntity = SelectedItemExtractor();
             var addWindow = _addEditWindowFactory.CreateAddEditWindow(editingEntity);
             if (addWindow.ShowDialog() == true)
             {
@@ -79,21 +81,24 @@ namespace CarSharingApp.ViewModels
         protected abstract bool EditCommand_CanExecute();
 
         private DelegateCommand _deleteCommand;
+
         public DelegateCommand DeleteCommand =>
                             _deleteCommand ??= new DelegateCommand(DeleteCommand_Execute, DeleteCommand_CanExecute);
 
         protected virtual void DeleteCommand_Execute()
         {
-            ObservableCollection<TEntity> selectedItems = EntitiesCollectionExtractor();
+            ObservableCollection<TEntity> selectedItems =
+                SelectedItemsExtractor();
             try
             {
                 using (var dbContext = new ApplicationDbContext())
                 {
-                    var dbSet = dbContext.Set<TEntity>();
+                    DbSet<TEntity> dbSet = dbContext.Set<TEntity>();
                     dbSet.RemoveRange(selectedItems);
                     dbContext.SaveChanges();
                 }
-                ObservableCollection<TEntity> itemsCollection = EntitiesCollectionExtractor();
+                ObservableCollection<TEntity> itemsCollection =
+                    EntitiesCollectionExtractor();
                 itemsCollection.RemoveRange(selectedItems);
                 itemsCollection = null;
                 selectedItems = null;
@@ -105,8 +110,21 @@ namespace CarSharingApp.ViewModels
         }
         protected abstract bool DeleteCommand_CanExecute();
 
+
+        /// <summary>
+        /// Функция, которая извлекает выбранный элемент из класса-наследника.
+        /// </summary>
         protected abstract TEntity SelectedItemExtractor();
+
+        /// <summary>
+        /// Функция, которая извлекает элементы списка из класса-наследника.
+        /// </summary>
         protected abstract ObservableCollection<TEntity> EntitiesCollectionExtractor();
+
+        /// <summary>
+        /// Функция, которая извлекает выбранные элементы из класса-наследника.
+        /// </summary>
         protected abstract ObservableCollection<TEntity> SelectedItemsExtractor();
+
     }
 }

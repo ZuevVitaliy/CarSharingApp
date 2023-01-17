@@ -1,4 +1,6 @@
-﻿using CarSharingApp.Models.DataBase.Entities;
+﻿using CarSharingApp.Models.DataBase;
+using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.ViewModels.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,11 +12,12 @@ namespace CarSharingApp.ViewModels
 {
     public class ClientsViewModel : EntityWindowViewModelBase<Client>
     {
-        
-        public ObservableCollection<Client> SelectedClients { get; set; }
-        public ObservableCollection<Client> Clients { get; set; }
-
-        public bool HasCanEditOrRemoveClient => SelectedClient != null;
+        public ClientsViewModel()
+        {
+            var dbContext = new ApplicationDbContext();
+            var clients = dbContext.Clients;
+            Clients = new ObservableCollection<Client>(clients);
+        }
 
         private Client _selectedClient;
         public Client SelectedClient
@@ -28,13 +31,19 @@ namespace CarSharingApp.ViewModels
             }
         }
 
+        public ObservableCollection<Client> SelectedClients { get; set; }
 
-        protected override bool DeleteCommand_CanExecute()
+        public ObservableCollection<Client> Clients { get; set; }
+
+        public bool HasCanEditOrRemoveClient => SelectedClient != null;
+
+        protected override bool EditCommand_CanExecute()
         {
             //TODO: костыль для запуска окна. Позже изменить логику
             return HasCanEditOrRemoveClient;
         }
-        protected override bool EditCommand_CanExecute()
+
+        protected override bool DeleteCommand_CanExecute()
         {
             //TODO: костыль для запуска окна. Позже изменить логику
             return HasCanEditOrRemoveClient;

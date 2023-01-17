@@ -60,50 +60,57 @@ namespace CarSharingApp.ViewModels
                 DeleteCommand.RaiseCanExecuteChanged();
             }
         }
+
         public ObservableCollection<Car> SelectedCars { get; set; }
+
         private bool HasCanEditOrRemoveCar => SelectedCar != null;
         public bool HasUserAdminOptions => Role == Role.Administrator;
 
-
         #endregion Properties
         #region Commands
+
         protected override bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
+
         protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
         }
 
-
         private DelegateCommand _openClientsWindowCommand;
         public DelegateCommand OpenClientsWindowCommand =>
             _openClientsWindowCommand ??= new DelegateCommand(OpenClientsWindowCommand_Execute);
+
         private void OpenClientsWindowCommand_Execute()
         {
             var clientsWindow = new ClientsWindow();
             clientsWindow.Show();
         }
 
-
         private DelegateCommand _openRentsWindowCommand;
         public DelegateCommand OpenRentsWindowCommand =>
             _openRentsWindowCommand ??= new DelegateCommand(OpenRentsWindowCommand_Execute);
+
         private void OpenRentsWindowCommand_Execute()
         {
             throw new NotImplementedException();
         }
 
-
+        /// <inheritdoc/>
         protected override Car SelectedItemExtractor()
         {
             return SelectedCar;
         }
+
+        /// <inheritdoc/>
         protected override ObservableCollection<Car> EntitiesCollectionExtractor()
         {
             return Cars;
         }
+
+        /// <inheritdoc/>
         protected override ObservableCollection<Car> SelectedItemsExtractor()
         {
             return SelectedCars;

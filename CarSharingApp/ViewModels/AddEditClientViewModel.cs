@@ -11,64 +11,47 @@ namespace CarSharingApp.ViewModels
 {
     public class AddEditClientViewModel : AddEditViewModelBase
     {
-        
+        private Client _client;
 
-        public AddEditClientViewModel(AddEditClientWindow addEditWindow, Client client) : base(addEditWindow)
+        public AddEditClientViewModel(
+            AddEditClientWindow addEditWindow,
+            Client client
+            )
+            : base(addEditWindow)
         {
             _client = client;
         }
 
-        private Client _client;
-        private string firstName;
         public string FirstName 
         { 
-            get => firstName; 
-            set
+            set 
             {
-                firstName = value;
-            }
+            }  
         }
-        private string lastName;
-        public string LastName 
-        { 
-            get => lastName;
-            set
-            {
-                lastName = value;
-            }
-        }
-        private DateTime birthDate;
-        public DateTime BirthDate 
-        { 
-            get => birthDate;
-            set
-            {
-                birthDate = value;
-            }
-        }
-        private Vip vIP;
-        public Vip VIP 
-        { 
-            get => vIP;
-            set
-            {
-                vIP = value;
-            }
-        }
-
-
-
-
-
-
-        protected override bool SaveCommand_CanExecute()
+        public string LastName
         {
-            return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName);
+            set
+            {
+            }
+        }
+        public DateTime BirthDate
+        {
+            set
+            {
+            }
+        }
+        public Vip VIP
+        {
+            set
+            {
+            }
         }
 
-        protected override void SaveEntity()
         {
-            throw new NotImplementedException();
         }
+
+        {
+        }
+
     }
 }
