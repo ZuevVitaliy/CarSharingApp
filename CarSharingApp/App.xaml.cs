@@ -17,8 +17,6 @@ namespace CarSharingApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //var encryptor = new Encryptor();
-            //Guid someGuid = Guid.NewGuid();
         }
     }
 }
