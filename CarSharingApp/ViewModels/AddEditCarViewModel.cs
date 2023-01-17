@@ -13,9 +13,9 @@ namespace CarSharingApp.ViewModels
 {
     public class AddEditCarViewModel : AddEditViewModelBase
     {
-        private Car _car;
+        private Rent _car;
 
-        public AddEditCarViewModel(AddEditCarWindow window, Car car) 
+        public AddEditCarViewModel(AddEditCarWindow window, Rent car) 
             : base(window)
         {
             Mark = car.Mark;

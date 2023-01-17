@@ -2,6 +2,7 @@
 using CarSharingApp.Views;
 using CarSharingApp.Views.Interfaces;
 using System;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 namespace CarSharingApp.Helpers.Window
@@ -15,8 +16,8 @@ namespace CarSharingApp.Helpers.Window
             {
                 case nameof(Car):
                     return new AddEditCarWindow(entity as Car);
-                case nameof(Client):
-                    return new AddEditClientWindow(entity as Client);
+                case nameof(Rent):
+                    return new AddEditClientWindow(entity as Rent);
                 default:
                     throw new ArgumentException(
                         $@"Класс ""{type.Name}"" не определён для фабрики окон создания/редактирования");

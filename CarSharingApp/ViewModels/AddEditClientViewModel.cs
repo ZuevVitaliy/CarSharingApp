@@ -7,11 +7,11 @@ namespace CarSharingApp.ViewModels
 {
     public class AddEditClientViewModel : AddEditViewModelBase
     {
-        private Client _client;
+        private Rent _client;
 
         public AddEditClientViewModel(
             AddEditClientWindow addEditWindow,
-            Client client
+            Rent client
             )
             : base(addEditWindow)
         {

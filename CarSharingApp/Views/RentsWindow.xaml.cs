@@ -13,30 +13,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CarSharingApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для RentsWindow.xaml
     /// </summary>
-    public partial class CarsWindow : Window
+    public partial class RentsWindow : Window
     {
-        private CarsViewModel _carsViewModel;
-
-        public CarsWindow(string login, Role role)
+        private readonly RentsViewModel _rentsViewModel;
+        public RentsWindow()
         {
             InitializeComponent();
-            _carsViewModel = new CarsViewModel();
-            DataContext = _carsViewModel;
-            _carsViewModel.Role = role;
+            _rentsViewModel = new RentsViewModel();
+            DataContext = _rentsViewModel;
         }
 
-        private void CarsDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RentsDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedCars = ((DataGrid)sender).SelectedItems.Cast<Rent>();
-            _carsViewModel.SelectedCars = new ObservableCollection<Rent>(selectedCars);
+            var selectedRents = ((DataGrid)sender).SelectedItems.Cast<Rent>();
+            _rentsViewModel.SelectedRents = new ObservableCollection<Rent>(selectedRents);
         }
     }
 }

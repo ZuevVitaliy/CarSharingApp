@@ -1,4 +1,6 @@
-﻿using CarSharingApp.ViewModels;
+﻿using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.ViewModels;
+using CarSharingApp.Views.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +14,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CarSharingApp.Models.DataBase.Entities;
-using CarSharingApp.Views.Interfaces;
 
 namespace CarSharingApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddEditCarWindow.xaml
+    /// Логика взаимодействия для AddEditRentWindow.xaml
     /// </summary>
-    public partial class AddEditCarWindow : Window, IAddEditWindow
+    public partial class AddEditRentWindow : Window, IAddEditWindow
     {
-        public AddEditCarWindow(Rent car)
+        public AddEditRentWindow(Rent rent)
         {
             InitializeComponent();
-            DataContext = new AddEditCarViewModel(this, car);
+            _statusCombobox.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>();
+            DataContext = new AddEditRentViewModel(this, rent);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace CarSharingApp.Views
     /// </summary>
     public partial class AddEditClientWindow : Window, IAddEditWindow
     {
-        public AddEditClientWindow(Client client)
+        public AddEditClientWindow(Rent client)
         {
             InitializeComponent();
             DataContext = new AddEditClientViewModel(this ,client);

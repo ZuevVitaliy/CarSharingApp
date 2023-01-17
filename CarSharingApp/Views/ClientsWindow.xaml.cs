@@ -34,8 +34,8 @@ namespace CarSharingApp.Views
 
         private void ClientsDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedClients = ((DataGrid)sender).SelectedItems.Cast<Client>();
-            _clientsViewModel.SelectedClients = new ObservableCollection<Client>(selectedClients);
+            var selectedClients = ((DataGrid)sender).SelectedItems.Cast<Rent>();
+            _clientsViewModel.SelectedClients = new ObservableCollection<Rent>(selectedClients);
         }
     }
 }

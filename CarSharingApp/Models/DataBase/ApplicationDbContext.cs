@@ -13,10 +13,10 @@ namespace CarSharingApp.Models.DataBase
     {
         public ApplicationDbContext(){}
 
-        public DbSet<Car> Cars { get; set; }
+        public DbSet<Rent> Cars { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Rent> Rents { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<Rent> Clients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

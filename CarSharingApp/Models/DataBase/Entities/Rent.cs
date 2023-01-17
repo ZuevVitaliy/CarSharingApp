@@ -7,12 +7,21 @@ namespace CarSharingApp.Models.DataBase.Entities
     {
         public Guid CarId { get; set; }
         [ForeignKey("CarId")]
-        public Car Car { get; set; }
+        public Rent Car { get; set; }
         public Guid ClientId { get; set; }
         [ForeignKey("ClientId")]
-        public Client Client { get; set; }
+        public Rent Client { get; set; }
         public DateTime StartRent { get; set; }
         public DateTime EndRent { get; set; }
         public double CostPerHour { get; set; }
+        public Status Status { get; set; }
     }
+
+    public enum Status
+    {
+        InStock,
+        Rented,
+        Overdue
+    }
+
 }

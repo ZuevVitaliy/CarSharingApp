@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace CarSharingApp.ViewModels
 {
-    public class ClientsViewModel : EntityWindowViewModelBase<Client>
+    public class ClientsViewModel : EntityWindowViewModelBase<Rent>
     {
         public ClientsViewModel()
         {
             var dbContext = new ApplicationDbContext();
             var clients = dbContext.Clients;
-            Clients = new ObservableCollection<Client>(clients);
+            Clients = new ObservableCollection<Rent>(clients);
         }
 
-        private Client _selectedClient;
+        private Rent _selectedClient;
 
-        public Client SelectedClient
+        public Rent SelectedClient
         {
             get => _selectedClient;
             set
@@ -32,9 +32,9 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        public ObservableCollection<Client> SelectedClients { get; set; }
+        public ObservableCollection<Rent> SelectedClients { get; set; }
 
-        public ObservableCollection<Client> Clients { get; set; }
+        public ObservableCollection<Rent> Clients { get; set; }
 
         public bool HasCanEditOrRemoveClient => SelectedClient != null;
 
@@ -48,17 +48,17 @@ namespace CarSharingApp.ViewModels
             return HasCanEditOrRemoveClient;
         }
 
-        protected override Client SelectedItemExtractor()
+        protected override Rent SelectedItemExtractor()
         {
             return SelectedClient;
         }
 
-        protected override ObservableCollection<Client> EntitiesCollectionExtractor()
+        protected override ObservableCollection<Rent> EntitiesCollectionExtractor()
         {
             return Clients;
         }
 
-        protected override ObservableCollection<Client> SelectedItemsExtractor()
+        protected override ObservableCollection<Rent> SelectedItemsExtractor()
         {
             return SelectedClients;
         }

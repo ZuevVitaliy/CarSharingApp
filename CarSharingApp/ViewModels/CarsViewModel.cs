@@ -16,13 +16,13 @@ using System.Windows;
 
 namespace CarSharingApp.ViewModels
 {
-    public class CarsViewModel : EntityWindowViewModelBase<Car>
+    public class CarsViewModel : EntityWindowViewModelBase<Rent>
     {
         public CarsViewModel()
         {
             var dbContext = new ApplicationDbContext();
             var cars = dbContext.Cars;
-            Cars = new ObservableCollection<Car>(cars);
+            Cars = new ObservableCollection<Rent>(cars);
         }
 
         private Role _role;
@@ -38,8 +38,8 @@ namespace CarSharingApp.ViewModels
 
         #region Properties
 
-        private ObservableCollection<Car> _cars;
-        public ObservableCollection<Car> Cars
+        private ObservableCollection<Rent> _cars;
+        public ObservableCollection<Rent> Cars
         {
             get => _cars;
             set
@@ -49,9 +49,9 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private Car _selectedCar;
+        private Rent _selectedCar;
 
-        public Car SelectedCar
+        public Rent SelectedCar
         {
             get => _selectedCar;
             set
@@ -62,7 +62,7 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        public ObservableCollection<Car> SelectedCars { get; set; }
+        public ObservableCollection<Rent> SelectedCars { get; set; }
 
         private bool HasCanEditOrRemoveCar => SelectedCar != null;
         public bool HasUserAdminOptions => Role == Role.Administrator;
@@ -96,23 +96,24 @@ namespace CarSharingApp.ViewModels
 
         private void OpenRentsWindowCommand_Execute()
         {
-            throw new NotImplementedException();
+            var rentsWindow = new RentsWindow();
+           rentsWindow.Show();
         }
 
         /// <inheritdoc/>
-        protected override Car SelectedItemExtractor()
+        protected override Rent SelectedItemExtractor()
         {
             return SelectedCar;
         }
 
         /// <inheritdoc/>
-        protected override ObservableCollection<Car> EntitiesCollectionExtractor()
+        protected override ObservableCollection<Rent> EntitiesCollectionExtractor()
         {
             return Cars;
         }
 
         /// <inheritdoc/>
-        protected override ObservableCollection<Car> SelectedItemsExtractor()
+        protected override ObservableCollection<Rent> SelectedItemsExtractor()
         {
             return SelectedCars;
         }
