@@ -1,5 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
-using CarSharingApp.ViewModels;
+using RentSharingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,11 +18,11 @@ using System.Windows.Shapes;
 namespace CarSharingApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для RentsViewModel.xaml
     /// </summary>
     public partial class RentsWindow : Window
     {
         private readonly RentsViewModel _rentsViewModel;
+
         public RentsWindow()
         {
             InitializeComponent();

@@ -1,6 +1,7 @@
-﻿using CarSharingApp.Models.DataBase.Entities;
+﻿using CarSharingApp.Models.DataBase;
+using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.ViewModels.BaseClasses;
-using CarSharingApp.Views.Interfases;
+using CarSharingApp.Views.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,13 @@ namespace CarSharingApp.ViewModels
     public class AddEditRentViewModel : AddEditViewModelBase
     {
         private readonly Rent _rent;
-        public AddEditRentViewModel(IAddEditWindow addEditWindow, Rent rent,ICollection<Car> cars,ICollection<Client> clients) : base(addEditWindow)
         {
             _rent = rent;
-            Cars = cars;
-            Client = clients;
         }
+
+        public IReadOnlyCollection<Car> Cars { get; }
+        public IReadOnlyCollection<Client> Clients { get; }
+
         private Car _selectedCar;
         public Car SelectedCar
         {
@@ -29,12 +31,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public ICollection<Car> Cars
-        {
-            get;
-            set;
-        }
-        public Client _selectedClient;
         public Client SelectedClient
         {
             get => _selectedClient;
@@ -45,12 +41,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public ICollection<Client> Client
-        {
-            get;
-            set;
-        }
-        public DateTime _startDate;
         public DateTime StartDate
         {
             get => _startDate;
@@ -61,7 +51,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public string _startTime;
         public string StartTime
         {
             get => _startTime;
@@ -72,7 +61,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public DateTime _endDate;
         public DateTime EndDate
         {
             get => _endDate;
@@ -83,7 +71,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public string _endTime;
         public string EndTime
         {
             get => _endTime;
@@ -94,7 +81,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public string _costPerHour;
         public string CostPerHour
         {
             get => _costPerHour;
@@ -105,7 +91,6 @@ namespace CarSharingApp.ViewModels
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-        public Status _selectedStatus;
         public Status SelectedStatus
         {
             get => _selectedStatus;
@@ -133,16 +118,12 @@ namespace CarSharingApp.ViewModels
             _rent.Car = SelectedCar;
             _rent.Client = SelectedClient;
             _rent.StartRent = ParseDateAndTimeToDateTime(StartDate, StartTime);
-            _rent.EndRent = ParseDateAndTimeToDateTime(EndDate, StartTime);
             double.TryParse(CostPerHour, out var costPerHour);
             _rent.CostPerHour = costPerHour;
             _rent.Status = SelectedStatus;
         }
 
-        private DateTime ParseDateAndTimeToDateTime(DateTime Date, string Time)
         {
-            var hoursMinutes = Time.Split(':');
-            return new DateTime(Date.Year, Date.Month, Date.Day, int.Parse(hoursMinutes[0]), int.Parse(hoursMinutes[1]),0);
         }
     }
 }

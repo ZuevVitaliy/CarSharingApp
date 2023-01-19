@@ -4,10 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarSharingApp.Views"
-        xmlns:viewmodel="clr-namespace:CarSharingApp.ViewModels"
+        xmlns:viewmodels="clr-namespace:CarSharingApp.ViewModels"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignData Type=viewmodel:RentsViewModel}"
-        Title="RentsViewModel" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>

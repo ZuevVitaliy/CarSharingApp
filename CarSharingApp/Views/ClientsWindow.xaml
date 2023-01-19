@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarSharingApp.Views"
         xmlns:viewmodels="clr-namespace:CarSharingApp.ViewModels"
+        d:DataContext="{d:DesignData Type=viewmodels:ClientsViewModel}"
         mc:Ignorable="d"
         d:DataContext="{d:DesignData Type=viewmodels:RentsViewModel}"
         Title="ClientsWindow" Height="450" Width="800">

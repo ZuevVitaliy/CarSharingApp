@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarSharingApp.ViewModels
+namespace RentSharingApp.ViewModels
 {
     public class RentsViewModel : EntityWindowViewModelBase<Rent>
     {
@@ -31,30 +31,18 @@ namespace CarSharingApp.ViewModels
             });
             Rents = new ObservableCollection<RentDto>(rents);
         }
-        
-        private Role _role;
-        public Role Role
-        {
-            get => _role;
-            set
-            {
-                _role = value;
-                RaisePropertyChanged(nameof(HasUserAdminOptions));
-            }
-        }
 
-        #region Properties
-        private ObservableCollection<RentDto> _rent;
+
         public ObservableCollection<RentDto> Rents
         {
-            get => _rent;
             set
             {
-                _rent = value;
                 RaisePropertyChanged();
             }
         }
+
         private Rent _selectedRent;
+
         public Rent SelectedRent
         {
             get => _selectedRent;
@@ -69,24 +57,28 @@ namespace CarSharingApp.ViewModels
         public ObservableCollection<Rent> SelectedRents { get; set; }
 
         private bool HasCanEditOrRemoveRent => SelectedRent != null;
-        public bool HasUserAdminOptions => Role == Role.Administrator;
 
         protected override bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveRent;
         }
+
         protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveRent;
-        }
-        protected override Rent SelectedItemExtractor()
-        {
-            return SelectedRent;
         }
         protected override ICollection<Rent> EntitiesCollectionExtractor()
         {
             return (ICollection<Rent>)Rents;
         }
+
+        /// <inheritdoc/>
+        protected override Rent SelectedItemExtractor()
+        {
+            return SelectedRent;
+        }
+
+        /// <inheritdoc/>
         protected override ICollection<Rent> SelectedItemsExtractor()
         {
             return SelectedRents;

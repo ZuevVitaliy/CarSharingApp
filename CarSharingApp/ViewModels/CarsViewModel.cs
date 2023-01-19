@@ -67,6 +67,7 @@ namespace CarSharingApp.ViewModels
         public bool HasUserAdminOptions => Role == Role.Administrator;
 
         #endregion Properties
+
         #region Commands
 
         protected override bool EditCommand_CanExecute()
@@ -106,13 +107,13 @@ namespace CarSharingApp.ViewModels
         }
 
         /// <inheritdoc/>
-        protected override ObservableCollection<Car> EntitiesCollectionExtractor()
+        protected override ICollection<Car> EntitiesCollectionExtractor()
         {
             return Cars;
         }
 
         /// <inheritdoc/>
-        protected override ObservableCollection<Car> SelectedItemsExtractor()
+        protected override ICollection<Car> SelectedItemsExtractor()
         {
             return SelectedCars;
         }
