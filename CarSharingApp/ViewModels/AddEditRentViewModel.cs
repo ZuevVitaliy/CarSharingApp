@@ -18,18 +18,29 @@ namespace CarSharingApp.ViewModels
             : base(addEditWindow)
         {
             _rent = rent;
+            //TODO: реализовать обновление автомобиля и клиента из кода на вью
             SelectedCar = rent.Car;
             SelectedClient = rent.Client;
             SelectedStatus = rent.Status;
             CostPerHour = rent.CostPerHour.ToString();
 
+            var now = DateTime.Now;
+
             var start = rent.StartRent;
-            StartDate = new DateTime(start.Year, start.Month, start.Day);
-            StartTime = $"{start.Hour}:{start.Minute}";
+            StartDate = start == default ?
+                new DateTime(now.Year, now.Month, now.Day) :
+                new DateTime(start.Year, start.Month, start.Day);
+            StartTime = start == default ?
+                $"{now.Hour}:{now.Minute}" :
+                $"{start.Hour}:{start.Minute}";
 
             var end = rent.EndRent;
-            EndDate = new DateTime(end.Year, end.Month, end.Day);
-            EndTime = $"{end.Hour}:{end.Minute}";
+            EndDate = start == default ?
+                new DateTime(now.Year, now.Month, now.Day) :
+                new DateTime(end.Year, end.Month, end.Day);
+            EndTime = start == default ?
+                $"{now.Hour}:{now.Minute}" : 
+                $"{end.Hour}:{end.Minute}";
 
             var dbContext = new ApplicationDbContext();
             Cars = dbContext.Cars.ToList();
@@ -47,9 +58,13 @@ namespace CarSharingApp.ViewModels
             {
                 _selectedCar = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(CarFullName));
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
+
+        public string CarFullName => SelectedCar.FullName;
+        public string ClientFullName => SelectedClient.FullName;
 
         private Client _selectedClient;
         public Client SelectedClient
@@ -59,6 +74,7 @@ namespace CarSharingApp.ViewModels
             {
                 _selectedClient = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(ClientFullName));
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
@@ -138,8 +154,8 @@ namespace CarSharingApp.ViewModels
 
         protected override void SaveEntityOperation()
         {
-            _rent.Car = SelectedCar;
-            _rent.Client = SelectedClient;
+            _rent.CarId = SelectedCar.Id;
+            _rent.ClientId = SelectedClient.Id;
             _rent.StartRent = ParseDateAndTimeToDateTime(StartDate, StartTime);
             _rent.EndRent = ParseDateAndTimeToDateTime(EndDate, EndTime);
             double.TryParse(CostPerHour, out var costPerHour);

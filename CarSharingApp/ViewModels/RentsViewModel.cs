@@ -1,7 +1,7 @@
 ﻿using CarSharingApp.Models.DataBase;
 using CarSharingApp.Models.DataBase.Entities;
-using CarSharingApp.Models.Dtos;
 using CarSharingApp.ViewModels.BaseClasses;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,31 +14,21 @@ namespace RentSharingApp.ViewModels
         public RentsViewModel()
         {
             var dbContext = new ApplicationDbContext();
-            var rents = dbContext.Rents.Select(x =>
-            new RentDto
-            {
-                Id = x.Id,
-                Car = x.Car,
-                CarId = x.CarId,
-                Client = x.Client,
-                ClientId = x.ClientId,
-                CostPerHour = x.CostPerHour,
-                StartRent = x.StartRent,
-                EndRent = x.EndRent,
-                Status = x.Status
-            });
-            Rents = new ObservableCollection<RentDto>(rents);
+            var rents = dbContext.Rents
+                .Include(x => x.Car)
+                .Include(x => x.Client);
+            Rents = new ObservableCollection<Rent>(rents);
         }
 
         #region Properties
 
-        private ObservableCollection<RentDto> _Rents;
-        public ObservableCollection<RentDto> Rents
+        private ObservableCollection<Rent> _rents;
+        public ObservableCollection<Rent> Rents
         {
-            get => _Rents;
+            get => _rents;
             set
             {
-                _Rents = value;
+                _rents = value;
                 RaisePropertyChanged();
             }
         }
@@ -76,7 +66,7 @@ namespace RentSharingApp.ViewModels
         protected override void EditCommand_Execute()
         {
             base.EditCommand_Execute();
-            Rents = new ObservableCollection<RentDto>(Rents);
+            Rents = new ObservableCollection<Rent>(Rents);
         }
 
         /// <inheritdoc/>
