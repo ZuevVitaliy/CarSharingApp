@@ -73,6 +73,13 @@ namespace RentSharingApp.ViewModels
         }
 
         /// <inheritdoc/>
+        protected override void EditCommand_Execute()
+        {
+            base.EditCommand_Execute();
+            Rents = new ObservableCollection<RentDto>(Rents);
+        }
+
+        /// <inheritdoc/>
         protected override ICollection<Rent> EntitiesCollectionExtractor()
         {
             return (ICollection<Rent>)Rents;

@@ -13,11 +13,12 @@ namespace CarSharingApp.ViewModels
 {
     public class AddEditCarViewModel : AddEditViewModelBase
     {
-        private Car _car;
+        private readonly Car _car;
 
         public AddEditCarViewModel(AddEditCarWindow window, Car car) 
             : base(window)
         {
+            _car = car;
             Mark = car.Mark;
             Model = car.Model;
             GovNumber = car.GovNumber;

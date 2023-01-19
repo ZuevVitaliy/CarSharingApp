@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="AddEditRentWindow" Height="450" Width="800">
     <Window.Resources>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+        <ObjectDataProvider x:Key="StatusesEnum" MethodName="GetValues"
                             ObjectType="{x:Type system:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="entities:Status"/>
@@ -39,17 +39,29 @@
             <TextBlock MinWidth="100">Автомобиль</TextBlock>
             <ComboBox MinWidth="200" 
                       SelectedItem="{Binding SelectedCar, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Cars}"/>
+                      ItemsSource="{Binding Cars}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Клиент</TextBlock>
             <ComboBox MinWidth="200" 
                       SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Clients}"/>
+                      ItemsSource="{Binding Clients}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Дата начала аренды</TextBlock>
-            <DatePicker MinWidth="200" DisplayDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker MinWidth="200" SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Время начала аренды</TextBlock>
@@ -57,7 +69,7 @@
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Дата окончания аренды</TextBlock>
-            <DatePicker MinWidth="200" DisplayDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker MinWidth="200" SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Время окончания аренды</TextBlock>
@@ -70,7 +82,6 @@
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Статус аренды</TextBlock>
             <ComboBox MinWidth="200" x:Name="_statusComboBox"
-                      ItemsSource="{StaticResource dataFromEnum}"
                       SelectedItem="{Binding SelectedStatus, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 

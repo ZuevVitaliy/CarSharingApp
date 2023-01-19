@@ -17,6 +17,8 @@ namespace CarSharingApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            int a = 5;
+            ref int b = ref a;
         }
     }
 }
