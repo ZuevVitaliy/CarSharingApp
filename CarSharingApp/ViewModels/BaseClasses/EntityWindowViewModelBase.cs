@@ -72,8 +72,8 @@ namespace CarSharingApp.ViewModels.BaseClasses
                 {
                     MessageBox.Show(ex.Message);
                 }
-                var collection = EntitiesCollectionExtractor();
-                collection = new ObservableCollection<TEntity>(collection);
+                //var collection =  EntitiesCollectionExtractor();
+                //collection = new ObservableCollection<TEntity>(collection);
             }
         }
         protected abstract bool EditCommand_CanExecute();

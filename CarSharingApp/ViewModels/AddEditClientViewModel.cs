@@ -16,6 +16,10 @@ namespace CarSharingApp.ViewModels
             : base(addEditWindow)
         {
             _client = client;
+            FirstName = client.FirstName;
+            LastName = client.LastName;
+            BirthDate=client.BirthDate;
+            VIP = client.Vip;
         }
 
         private string _firstName;

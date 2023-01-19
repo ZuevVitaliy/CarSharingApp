@@ -18,6 +18,13 @@ namespace CarSharingApp.ViewModels
             : base(addEditWindow)
         {
             _rent = rent;
+            SelectedCar = rent.Car;
+            SelectedClient = rent.Client;
+            StartDate = new DateTime(rent.StartRent.Year, rent.StartRent.Month, rent.StartRent.Day);
+            EndDate = new DateTime(rent.EndRent.Year, rent.EndRent.Month, rent.EndRent.Day);
+            StartTime = $"{rent.StartRent.Hour}:{rent.StartRent.Minute}";
+            EndTime = $"{rent.EndRent.Hour}:{rent.EndRent.Minute}";
+            CostPerHour = rent.CostPerHour.ToString();
             var dbContext = new ApplicationDbContext();
             Cars = dbContext.Cars.ToList();
             Clients = dbContext.Clients.ToList();

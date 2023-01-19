@@ -61,7 +61,11 @@ namespace RentSharingApp.ViewModels
         private bool HasCanEditOrRemoveRent => SelectedRent != null;
 
         #endregion Properties
-
+        protected override void EditCommand_Execute()
+        {
+            base.EditCommand_Execute();
+            Rents= new ObservableCollection<RentDto>(Rents);
+        }
         protected override bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveRent;
