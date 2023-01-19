@@ -1,4 +1,5 @@
-﻿using CarSharingApp.Models.DataBase.Entities;
+﻿using CarSharingApp.Models.DataBase;
+using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.ViewModels.BaseClasses;
 using CarSharingApp.Views.Interfaces;
 using System;
@@ -13,20 +14,17 @@ namespace CarSharingApp.ViewModels
     {
         private readonly Rent _rent;
 
-        public AddEditRentViewModel(
-            IAddEditWindow addEditWindow,
-            Rent rent,
-             ICollection<Car> cars,
-              ICollection<Client> clients)
+        public AddEditRentViewModel(IAddEditWindow addEditWindow, Rent rent)
             : base(addEditWindow)
         {
             _rent = rent;
-            Cars = cars;
-            Clients = clients;
+            var dbContext = new ApplicationDbContext();
+            Cars = dbContext.Cars.ToList();
+            Clients = dbContext.Clients.ToList();
         }
 
-        public ICollection<Car> Cars { get; }
-        public ICollection<Client> Clients { get; }
+        public IReadOnlyCollection<Car> Cars { get; }
+        public IReadOnlyCollection<Client> Clients { get; }
 
         private Car _selectedCar;
         public Car SelectedCar

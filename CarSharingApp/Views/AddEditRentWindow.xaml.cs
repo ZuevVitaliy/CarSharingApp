@@ -23,14 +23,11 @@ namespace CarSharingApp.Views
     /// </summary>
     public partial class AddEditRentWindow : Window, IAddEditWindow
     {
-        public AddEditRentWindow(
-            Rent rent,
-            ICollection<Car> cars, 
-            ICollection<Client> clients)
+        public AddEditRentWindow(Rent rent)
         {
             InitializeComponent();
             _statusComboBox.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>();
-            DataContext = new AddEditRentViewModel(this, rent, cars, clients);
+            DataContext = new AddEditRentViewModel(this, rent);
         }
     }
 }
