@@ -1,6 +1,7 @@
 ﻿using CarSharingApp.Models.DataBase;
 using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.Models.Extensions;
+using CarSharingApp.ViewModels.BaseClasses;
 using CarSharingApp.Views;
 using Microsoft.EntityFrameworkCore;
 using Prism.Commands;
@@ -15,7 +16,7 @@ using System.Windows;
 
 namespace CarSharingApp.ViewModels
 {
-    public class CarsViewModel : EntityWindowViewModelBase
+    public class CarsViewModel : EntityWindowViewModelBase<Car>
     {
         public CarsViewModel()
         {
@@ -67,74 +68,12 @@ namespace CarSharingApp.ViewModels
         public bool HasUserAdminOptions => Role == Role.Administrator;
 
         #endregion Properties
+
         #region Commands
-
-        protected override void AddCommand_Execute()
-        {
-            var car = new Car();
-            var addWindow = new AddEditCarWindow(car);
-            if (addWindow.ShowDialog() == true)
-            {
-                try
-                {
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        dbContext.Cars.Add(car);
-                        dbContext.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                Cars.Add(car);
-            }
-        }
-
-        protected override void EditCommand_Execute()
-        {
-            var car = SelectedCar;
-            var addWindow = new AddEditCarWindow(car);
-            if (addWindow.ShowDialog() == true)
-            {
-                try
-                {
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        dbContext.Entry(car).State = EntityState.Modified;
-                        dbContext.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                Cars = new ObservableCollection<Car>(Cars);
-            }
-        }
 
         protected override bool EditCommand_CanExecute()
         {
             return HasCanEditOrRemoveCar;
-        }
-
-        protected override void DeleteCommand_Execute()
-        {
-            try
-            {
-                using (var dbContext = new ApplicationDbContext())
-                {
-                    dbContext.Cars.RemoveRange(SelectedCars);
-                    dbContext.SaveChanges();
-                }
-                Cars.RemoveRange(SelectedCars);
-                SelectedCar = null;
-                SelectedCars = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         protected override bool DeleteCommand_CanExecute()
@@ -158,7 +97,26 @@ namespace CarSharingApp.ViewModels
 
         private void OpenRentsWindowCommand_Execute()
         {
-            throw new NotImplementedException();
+            var rentsWindow = new RentsWindow();
+            rentsWindow.Show();
+        }
+
+        /// <inheritdoc/>
+        protected override Car SelectedItemExtractor()
+        {
+            return SelectedCar;
+        }
+
+        /// <inheritdoc/>
+        protected override ICollection<Car> EntitiesCollectionExtractor()
+        {
+            return Cars;
+        }
+
+        /// <inheritdoc/>
+        protected override ICollection<Car> SelectedItemsExtractor()
+        {
+            return SelectedCars;
         }
 
         #endregion Commands

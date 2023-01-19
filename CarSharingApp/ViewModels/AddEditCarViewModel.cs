@@ -1,4 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.ViewModels.BaseClasses;
 using CarSharingApp.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,15 +11,13 @@ using System.Threading.Tasks;
 
 namespace CarSharingApp.ViewModels
 {
-    public class AddEditCarViewModel : BindableBase
+    public class AddEditCarViewModel : AddEditViewModelBase
     {
-        private readonly AddEditCarWindow _window;
         private Car _car;
 
-        public AddEditCarViewModel(AddEditCarWindow window, Car car)
+        public AddEditCarViewModel(AddEditCarWindow window, Car car) 
+            : base(window)
         {
-            _window = window;
-            _car = car;
             Mark = car.Mark;
             Model = car.Model;
             GovNumber = car.GovNumber;
@@ -60,36 +59,20 @@ namespace CarSharingApp.ViewModels
             }
         }
 
-        private DelegateCommand _saveCommand;
-        public DelegateCommand SaveCommand =>
-            _saveCommand ??= new DelegateCommand(SaveCommand_Execute, SaveCommand_CanExecute);
-
-        private void SaveCommand_Execute()
+        protected override void SaveEntityOperation()
         {
             _car.Mark = Mark;
             _car.Model = Model;
             _car.GovNumber = GovNumber;
-            _car.Id  = Guid.Empty.Equals(_car.Id) ? Guid.NewGuid() : _car.Id;
-            _window.DialogResult = true;
-            _window.Close();
+            _car.Id = Guid.Empty.Equals(_car.Id) ? Guid.NewGuid() : _car.Id;
         }
 
-        private bool SaveCommand_CanExecute()
+        protected override bool SaveCommand_CanExecute()
         {
             return !string.IsNullOrWhiteSpace(Mark)
                 && !string.IsNullOrWhiteSpace(Model)
                 && !string.IsNullOrWhiteSpace(GovNumber);
         }
 
-        private DelegateCommand _cancelCommand;
-
-        public DelegateCommand CancelCommand =>
-            _cancelCommand ??= new DelegateCommand(CancelCommand_Execute);
-
-        private void CancelCommand_Execute()
-        {
-            _window.DialogResult = false;
-            _window.Close();
-        }
     }
 }
