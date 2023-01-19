@@ -95,7 +95,8 @@ namespace CarSharingApp.ViewModels
 
         private void OpenRentsWindowCommand_Execute()
         {
-            throw new NotImplementedException();
+            var rentsWindow = new RentsWindow();
+            rentsWindow.Show();
         }
 
         /// <inheritdoc/>

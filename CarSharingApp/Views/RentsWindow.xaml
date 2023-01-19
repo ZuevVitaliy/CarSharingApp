@@ -1,15 +1,15 @@
-﻿<Window x:Class="CarSharingApp.Views.ClientsWindow"
+﻿<Window x:Class="CarSharingApp.Views.RentsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarSharingApp.Views"
-        xmlns:viewmodels="clr-namespace:CarSharingApp.ViewModels"
+        xmlns:viewmodel="clr-namespace:CarSharingApp.ViewModels"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignData Type=viewmodels:RentsViewModel}"
-        Title="ClientsWindow" Height="450" Width="800">
+        d:DataContext="{d:DesignData Type=viewmodel:RentsViewModel}"
+        Title="RentsViewModel" Height="450" Width="800">
     <Grid>
-          <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
@@ -30,8 +30,8 @@
         </Grid>
 
         <DataGrid Grid.Row="1" IsReadOnly="True" SelectionMode="Extended"
-                  SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding Clients}"
-                  SelectionChanged="ClientsDataGridSelectionChanged"/>
+                  SelectedItem="{Binding SelectedRent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Rents}"
+                  SelectionChanged="RentsDataGridSelectionChanged"/>
     </Grid>
 </Window>

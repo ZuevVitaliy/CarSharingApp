@@ -47,11 +47,14 @@ namespace CarSharingApp.ViewModels
             }
         }
 
+        protected override bool SaveCommand_CanExecute()
         {
+            throw new NotImplementedException();
         }
 
+        protected override void SaveEntityOperation()
         {
+            throw new NotImplementedException();
         }
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
 using CarSharingApp.ViewModels;
-using CarSharingApp.Views.Interfaces;
+using CarSharingApp.Views.Interfases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +18,15 @@ using System.Windows.Shapes;
 namespace CarSharingApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddEditClientViewModel.xaml
+    /// Логика взаимодействия для AddEditRentWindow.xaml
     /// </summary>
-    public partial class AddEditClientWindow: Window,IAddEditWindow
+    public partial class AddEditRentWindow : Window,IAddEditWindow
     {
-        public AddEditClientWindow(Client client)
+        public AddEditRentWindow(Rent rent)
         {
             InitializeComponent();
-            DataContext = new AddEditClientViewModel(this, client);
+            _satusComboBox.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>();
+            DataContext = new AddEditRentViewModel(this, rent);
         }
     }
 }

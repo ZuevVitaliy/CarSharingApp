@@ -1,0 +1,75 @@
+﻿<Window x:Class="CarSharingApp.Views.AddEditRentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarSharingApp.Views" 
+        xmlns:viewModels ="clr-namespace:CarSharingApp.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewModels:AddEditClientViewModel}"
+        mc:Ignorable="d"
+        Title="AddEditCarWindow" Height="450" Width="400" MinHeight="450" MinWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Автомобиль</TextBlock>
+            <ComboBox Margin="58 0 0 0" 
+                      MinWidth="200" 
+                      Text="{Binding SelectedCar, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Cars}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Клиент</TextBlock>
+            <ComboBox  Margin="58 0 0 0" 
+                       MinWidth="200" 
+                       Text="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
+                       ItemsSource="{Binding Clients}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Дата начала аренды</TextBlock>
+            <DatePicker Margin="46 0 0 0" 
+                        MinWidth="200" 
+                        DisplayDate="{Binding StartTime, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Время окончания аренды</TextBlock>
+            <TextBox Margin="16 0 0 0" 
+                     MinWidth="200" 
+                     Text="{Binding EndTime, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Статус аренды</TextBlock>
+            <TextBox Margin="58 0 0 0" 
+                     MinWidth="200" 
+                     Text="{Binding CostPerHour, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Стоймость в час</TextBlock>
+            <TextBox Margin="58 0 0 0" 
+                     MinWidth="200" 
+                     Text="{Binding CostPerHour, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center">
+            <TextBlock MinWidth="100">Статус аренды</TextBlock>
+            <ComboBox Margin="58 0 0 0"  x:Name="_satusComboBox"
+                      MinWidth="200" 
+                      ItemsSource="{Binding SelectedStatus, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <Button Grid.Row="7" Width="100" Height="40" Command="{Binding SaveCommand}">Сохранить</Button>
+        <Button Grid.Row="7" Grid.Column="1" Width="100" Height="40" Command="{Binding CancelCommand}">Отмена</Button>
+    </Grid>
+</Window>

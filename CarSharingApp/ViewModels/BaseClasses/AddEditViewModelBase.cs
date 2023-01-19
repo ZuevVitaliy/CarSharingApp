@@ -1,5 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
-using CarSharingApp.Views.Interfaces;
+using CarSharingApp.Views.Interfases;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -7,7 +7,7 @@ namespace CarSharingApp.ViewModels.BaseClasses
 {
     public abstract class AddEditViewModelBase : BindableBase
     {
-        private readonly IAddEditWindow _addEditWindow;
+        private IAddEditWindow _addEditWindow;
 
         public AddEditViewModelBase(IAddEditWindow addEditWindow)
         {
