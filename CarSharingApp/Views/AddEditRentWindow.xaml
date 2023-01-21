@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:CarSharingApp.Views"
         xmlns:viewModels="clr-namespace:CarSharingApp.ViewModels"
         xmlns:entities="clr-namespace:CarSharingApp.Models.DataBase.Entities"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:system="clr-namespace:System;assembly=mscorlib" 
+        xmlns:helpers="clr-namespace:CarSharingApp.Helpers"
         d:DataContext="{d:DesignInstance Type=viewModels:AddEditRentViewModel}"
         mc:Ignorable="d"
         Title="AddEditRentWindow" Height="450" Width="800">
@@ -17,6 +18,7 @@
                 <x:Type TypeName="entities:Status"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <helpers:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -82,7 +84,9 @@
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Статус аренды</TextBlock>
             <ComboBox MinWidth="200" x:Name="_statusComboBox"
-                      SelectedItem="{Binding SelectedStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                      SelectedItem="{Binding SelectedStatus, 
+                Converter={StaticResource EnumDescriptionConverter},
+                UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <Button Grid.Row="8" Width="100" Height="40" Command="{Binding SaveCommand}">Сохранить</Button>

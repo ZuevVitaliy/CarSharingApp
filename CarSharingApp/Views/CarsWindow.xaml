@@ -52,8 +52,15 @@
         </Grid>
 
         <DataGrid Grid.Row="2" IsReadOnly="True" SelectionMode="Extended"
+                  AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedCar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Cars}"
-                  SelectionChanged="CarsDataGridSelectionChanged"/>
+                  SelectionChanged="CarsDataGridSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Mark}" Header="Марка"/>
+                <DataGridTextColumn Binding="{Binding Model}" Header="Модель"/>
+                <DataGridTextColumn Binding="{Binding GovNumber}" Header="Гос. номер" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

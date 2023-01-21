@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarSharingApp.Models.DataBase.Entities
@@ -22,8 +23,11 @@ namespace CarSharingApp.Models.DataBase.Entities
 
     public enum Status
     {
+        [Description("В наличии")]
         InStock,
+        [Description("Арендован")]
         Rented,
+        [Description("Просрочен")]
         Overdue
     }
 }

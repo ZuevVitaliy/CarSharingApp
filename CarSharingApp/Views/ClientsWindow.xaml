@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarSharingApp.Views"
-        xmlns:viewmodels="clr-namespace:CarSharingApp.ViewModels"
-        d:DataContext="{d:DesignData Type=viewmodels:ClientsViewModel}"
+        xmlns:viewmodels="clr-namespace:CarSharingApp.ViewModels" 
+        xmlns:helpers="clr-namespace:CarSharingApp.Helpers"
+        d:DataContext="{d:DesignInstance Type=viewmodels:ClientsViewModel}"
         mc:Ignorable="d"
         Title="ClientsWindow" Height="450" Width="800">
+    <Window.Resources>
+        <helpers:BooleanToVIPConverter x:Key="BooleanToVIPConverter"/>
+    </Window.Resources>
     <Grid>
           <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -30,8 +34,24 @@
         </Grid>
 
         <DataGrid Grid.Row="1" IsReadOnly="True" SelectionMode="Extended"
+                  AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Clients}"
-                  SelectionChanged="ClientsDataGridSelectionChanged"/>
+                  SelectionChanged="ClientsDataGridSelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding FirstName}" Header="Имя"/>
+                <DataGridTextColumn Binding="{Binding BirthDate, StringFormat=dd.MM.yyyy}" 
+                                    Header="Дата рождения"/>
+                <DataGridTemplateColumn Header="Постоянный клиент" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding Vip,
+                                Converter={StaticResource BooleanToVIPConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

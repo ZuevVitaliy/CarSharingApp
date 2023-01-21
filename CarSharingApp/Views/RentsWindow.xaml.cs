@@ -1,5 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
-using RentSharingApp.ViewModels;
+using CarSharingApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

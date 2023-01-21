@@ -1,4 +1,5 @@
 ﻿using CarSharingApp.Models.DataBase.Entities;
+using CarSharingApp.Models.Extensions;
 using CarSharingApp.ViewModels;
 using CarSharingApp.Views.Interfaces;
 using System;
@@ -26,7 +27,9 @@ namespace CarSharingApp.Views
         public AddEditRentWindow(Rent rent)
         {
             InitializeComponent();
-            _statusComboBox.ItemsSource = Enum.GetValues(typeof(Status)).Cast<Status>();
+            _statusComboBox.ItemsSource =
+                (Enum.GetValues(typeof(Status)) as Status[])
+                .Select(s => s.GetDescription());
             DataContext = new AddEditRentViewModel(this, rent);
         }
     }

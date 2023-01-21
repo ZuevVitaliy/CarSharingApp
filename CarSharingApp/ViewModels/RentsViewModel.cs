@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace RentSharingApp.ViewModels
+namespace CarSharingApp.ViewModels
 {
     public class RentsViewModel : EntityWindowViewModelBase<Rent>
     {
@@ -72,7 +72,7 @@ namespace RentSharingApp.ViewModels
         /// <inheritdoc/>
         protected override ICollection<Rent> EntitiesCollectionExtractor()
         {
-            return (ICollection<Rent>)Rents;
+            return Rents;
         }
 
         /// <inheritdoc/>
