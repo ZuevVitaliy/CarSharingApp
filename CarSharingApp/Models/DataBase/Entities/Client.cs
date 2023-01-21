@@ -13,10 +13,11 @@ namespace CarSharingApp.Models.DataBase.Entities
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public Vip Vip { get; set; }
-        [NotMapped]
-        public string FullName => $"{FirstName} {LastName}";
-        public virtual ICollection<Rent> Rents { get; set; }
 
+        [NotMapped]
+        public string FullName => $"{LastName} {FirstName}";
+
+        public virtual ICollection<Rent> Rents { get; set; }
     }
 
     public enum Vip

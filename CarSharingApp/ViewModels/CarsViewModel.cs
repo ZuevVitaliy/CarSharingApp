@@ -107,6 +107,13 @@ namespace CarSharingApp.ViewModels
         }
 
         /// <inheritdoc/>
+        protected override void EditCommand_Execute()
+        {
+            base.EditCommand_Execute();
+            Cars = new ObservableCollection<Car>(Cars);
+        }
+
+        /// <inheritdoc/>
         protected override Car SelectedItemExtractor()
         {
             return SelectedCar;

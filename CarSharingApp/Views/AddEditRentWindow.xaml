@@ -41,12 +41,10 @@
                       SelectedItem="{Binding SelectedCar, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Cars}">
                 <ComboBox.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate>
                         <TextBlock Text="{Binding FullName}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-
-
             </ComboBox>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
@@ -55,11 +53,10 @@
                       SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Clients}">
                 <ComboBox.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate>
                         <TextBlock Text="{Binding FullName}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-                
             </ComboBox>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center">

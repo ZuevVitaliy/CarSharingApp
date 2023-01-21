@@ -14,19 +14,21 @@ namespace RentSharingApp.ViewModels
         public RentsViewModel()
         {
             var dbContext = new ApplicationDbContext();
-            var rents = dbContext.Rents.Include(x=>x.Car).Include(x=>x.Client);
+            var rents = dbContext.Rents
+                .Include(x => x.Car)
+                .Include(x => x.Client);
             Rents = new ObservableCollection<Rent>(rents);
         }
 
         #region Properties
 
-        private ObservableCollection<Rent> _Rents;
+        private ObservableCollection<Rent> _rents;
         public ObservableCollection<Rent> Rents
         {
-            get => _Rents;
+            get => _rents;
             set
             {
-                _Rents = value;
+                _rents = value;
                 RaisePropertyChanged();
             }
         }
@@ -62,6 +64,13 @@ namespace RentSharingApp.ViewModels
         protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveRent;
+        }
+
+        /// <inheritdoc/>
+        protected override void EditCommand_Execute()
+        {
+            base.EditCommand_Execute();
+            Rents = new ObservableCollection<Rent>(Rents);
         }
 
         /// <inheritdoc/>

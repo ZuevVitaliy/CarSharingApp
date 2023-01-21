@@ -18,7 +18,7 @@ namespace CarSharingApp.ViewModels
             _client = client;
             FirstName = client.FirstName;
             LastName = client.LastName;
-            BirthDate=client.BirthDate;
+            BirthDate = client.BirthDate;
             VIP = client.Vip;
         }
 

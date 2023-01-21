@@ -16,7 +16,6 @@ namespace CarSharingApp.Models.DataBase.Entities
         [NotMapped]
         public string FullName => $"{Mark} {Model} {GovNumber}";
 
-
         public virtual ICollection<Rent> Rents { get; set; }
     }
 }
