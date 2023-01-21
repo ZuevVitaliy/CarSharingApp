@@ -20,10 +20,18 @@ namespace CarSharingApp.ViewModels
             _rent = rent;
             SelectedCar = rent.Car;
             SelectedClient = rent.Client;
-            StartDate = new DateTime(rent.StartRent.Year, rent.StartRent.Month, rent.StartRent.Day);
-            EndDate = new DateTime(rent.EndRent.Year, rent.EndRent.Month, rent.EndRent.Day);
-            StartTime = $"{rent.StartRent.Hour}:{rent.StartRent.Minute}";
-            EndTime = $"{rent.EndRent.Hour}:{rent.EndRent.Minute}";
+            StartDate = rent.StartRent==default?
+                new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day):
+                new DateTime(rent.StartRent.Year, rent.StartRent.Month, rent.StartRent.Day);
+            EndDate = rent.EndRent == default ?
+                new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) :
+                new DateTime(rent.EndRent.Year, rent.EndRent.Month, rent.EndRent.Day);
+            StartTime = rent.StartRent==default?
+                $"{DateTime.Now.Hour}:{DateTime.Now.Minute}":
+                $"{rent.StartRent.Hour}:{rent.StartRent.Minute}";
+            EndTime = rent.StartRent == default ?
+                $"{DateTime.Now.Hour}:{DateTime.Now.Minute}" :
+                $"{rent.EndRent.Hour}:{rent.EndRent.Minute}";
             CostPerHour = rent.CostPerHour.ToString();
             var dbContext = new ApplicationDbContext();
             Cars = dbContext.Cars.ToList();
@@ -132,8 +140,8 @@ namespace CarSharingApp.ViewModels
 
         protected override void SaveEntityOperation()
         {
-            _rent.Car = SelectedCar;
-            _rent.Client = SelectedClient;
+            _rent.CarId = SelectedCar.Id;
+            _rent.ClientId = SelectedClient.Id;
             _rent.StartRent = ParseDateAndTimeToDateTime(StartDate, StartTime);
             _rent.EndRent = ParseDateAndTimeToDateTime(EndDate, EndTime);
             double.TryParse(CostPerHour, out var costPerHour);
