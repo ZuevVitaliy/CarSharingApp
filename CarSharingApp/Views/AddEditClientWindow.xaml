@@ -35,7 +35,7 @@
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">Дата рождения</TextBlock>
-            <DatePicker MinWidth="200" DisplayDate="{Binding Birthdate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker MinWidth="200" SelectedDate="{Binding BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <TextBlock MinWidth="100">VIP</TextBlock>

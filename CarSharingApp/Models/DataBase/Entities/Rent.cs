@@ -15,6 +15,9 @@ namespace CarSharingApp.Models.DataBase.Entities
         public DateTime EndRent { get; set; }
         public double CostPerHour { get; set; }
         public Status Status { get; set; }
+
+        [NotMapped]
+        public double TotalCost => (EndRent - StartRent).TotalMinutes / 60 * CostPerHour;
     }
 
     public enum Status

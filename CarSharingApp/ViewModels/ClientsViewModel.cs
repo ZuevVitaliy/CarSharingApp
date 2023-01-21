@@ -20,6 +20,7 @@ namespace CarSharingApp.ViewModels
         }
 
         private Client _selectedClient;
+
         public Client SelectedClient
         {
             get => _selectedClient;
@@ -33,7 +34,16 @@ namespace CarSharingApp.ViewModels
 
         public ObservableCollection<Client> SelectedClients { get; set; }
 
-        public ObservableCollection<Client> Clients { get; set; }
+        private ObservableCollection<Client> _clients;
+        public ObservableCollection<Client> Clients 
+        {
+            get => _clients;
+            set
+            {
+                _clients = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public bool HasCanEditOrRemoveClient => SelectedClient != null;
 
@@ -45,6 +55,13 @@ namespace CarSharingApp.ViewModels
         protected override bool DeleteCommand_CanExecute()
         {
             return HasCanEditOrRemoveClient;
+        }
+
+        /// <inheritdoc/>
+        protected override void EditCommand_Execute()
+        {
+            base.EditCommand_Execute();
+            Clients = new ObservableCollection<Client>(Clients);
         }
 
         protected override Client SelectedItemExtractor()
