@@ -18,9 +18,12 @@ namespace CarSharingApp.ViewModels
             : base(addEditWindow)
         {
             _rent = rent;
-            //TODO: реализовать обновление автомобиля и клиента из кода на вью
-            SelectedCar = rent.Car;
-            SelectedClient = rent.Client;
+            var dbContext = new ApplicationDbContext();
+            Cars = dbContext.Cars.ToList();
+            Clients = dbContext.Clients.ToList();
+
+            SelectedCar = Cars.FirstOrDefault(car => car.Id == rent.CarId);
+            SelectedClient = Clients.FirstOrDefault(client => client.Id == rent.ClientId);
             SelectedStatus = rent.Status;
             CostPerHour = rent.CostPerHour.ToString();
 
@@ -41,10 +44,6 @@ namespace CarSharingApp.ViewModels
             EndTime = start == default ?
                 $"{now.Hour}:{now.Minute}" : 
                 $"{end.Hour}:{end.Minute}";
-
-            var dbContext = new ApplicationDbContext();
-            Cars = dbContext.Cars.ToList();
-            Clients = dbContext.Clients.ToList();
         }
 
         public IReadOnlyCollection<Car> Cars { get; }
@@ -58,13 +57,9 @@ namespace CarSharingApp.ViewModels
             {
                 _selectedCar = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged(nameof(CarFullName));
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-
-        public string CarFullName => SelectedCar.FullName;
-        public string ClientFullName => SelectedClient.FullName;
 
         private Client _selectedClient;
         public Client SelectedClient
@@ -74,7 +69,6 @@ namespace CarSharingApp.ViewModels
             {
                 _selectedClient = value;
                 RaisePropertyChanged();
-                RaisePropertyChanged(nameof(ClientFullName));
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }

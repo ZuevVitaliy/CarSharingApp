@@ -39,7 +39,6 @@
             <TextBlock MinWidth="100">Автомобиль</TextBlock>
             <ComboBox MinWidth="200" 
                       SelectedItem="{Binding SelectedCar, UpdateSourceTrigger=PropertyChanged}"
-                      Text="{Binding CarFullName, Mode=OneWay}"
                       ItemsSource="{Binding Cars}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -52,7 +51,6 @@
             <TextBlock MinWidth="100">Клиент</TextBlock>
             <ComboBox MinWidth="200" 
                       SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
-                      Text="{Binding ClientFullName, Mode=OneWay}"
                       ItemsSource="{Binding Clients}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
