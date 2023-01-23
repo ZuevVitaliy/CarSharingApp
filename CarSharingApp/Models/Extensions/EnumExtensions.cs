@@ -33,7 +33,15 @@ namespace CarSharingApp.Models.Extensions
                     elementSelector: x => (Enum.GetValues(targetType).Cast<Enum>())
                     .First(enmVal => enmVal.ToString() == x.fi.Name));
 
-            return fieldsDescriptionsDictionary[enumDescriptionValue];
+            if (fieldsDescriptionsDictionary.TryGetValue(enumDescriptionValue, out var enumValue))
+                return enumValue;
+
+            return default;
+        }
+
+        public static TEnum ToEnum<TEnum>(this string enumDescriptionValue) where TEnum : Enum
+        {
+            return (TEnum)enumDescriptionValue.ToEnum(typeof(TEnum));
         }
     }
 }
